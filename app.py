@@ -1,4 +1,4 @@
-from dash import Dash, html, dcc
+from dash import Dash, dcc, html, Input, Output 
 import plotly.express as px
 import pandas as pd
 app = Dash(__name__)
@@ -19,7 +19,7 @@ app.layout= html.Div([
 
     ])
 
-from dash import Dash, dcc, html, Input, Output 
+
 
 @app.callback(
     Output(component_id='Freq',component_property='figure'),
@@ -27,10 +27,11 @@ from dash import Dash, dcc, html, Input, Output
 )
 def update_output_div(dropdown_value):
     byGroup=df.groupby('{}'.format(dropdown_value)).size()
+    colName='{}'.format(dropdown_value)
     byGroupDf=byGroup.reset_index()
-    mapping = {byGroupDf.columns[0]: 'State', byGroupDf.columns[1]: 'Freq'}
+    mapping = {byGroupDf.columns[0]: colName, byGroupDf.columns[1]: 'Freq'}
     byStateDfN=byGroupDf.rename(columns=mapping)
-    fig=px.bar(byStateDfN, x="State", y="Freq")
+    fig=px.bar(byStateDfN, x=colName, y="Freq", title=colName, labels={colName: colName}, color=colName)
     return fig
 
 
