@@ -8,7 +8,7 @@ df=pd.read_csv("./data/shinyMetadat.csv")
 
 layout= html.Div([
     dcc.Link('Go to Page 2', href='/page2'),
-    html.H1('Viz app'),
+    html.H1('Meta Data Summary'),
     html.Div([
         dcc.Dropdown(id='dropdown',
         options= [ 
